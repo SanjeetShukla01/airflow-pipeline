@@ -8,11 +8,7 @@ LABEL maintainer="experient-labs"
 # Airflow
 ## Version specific ARGs
 ARG AIRFLOW_VERSION="2.8.1"
-ARG AIRFLOW_PIP_VERSION=23.3.2
 ARG WATCHTOWER_VERSION=2.0.1
-
-# By default PIP has progress bar but you can disable it here.
-ARG PIP_PROGRESS_BAR="on"
 
 ARG AIRFLOW_UID="50000"
 ARG ADDITIONAL_AIRFLOW_EXTRAS=""
@@ -35,7 +31,7 @@ COPY script/run-startup.sh /run-startup.sh
 COPY script/shell-launch-script.sh /shell-launch-script.sh
 COPY script/verification.sh /verification.sh
 COPY config/constraints.txt /constraints.txt
-COPY config/mwaa-base-providers-requirements.txt /mwaa-base-providers-requirements.txt
+COPY config/base-providers-requirements.txt /base-providers-requirements.txt
 
 RUN chmod u+x /systemlibs.sh && /systemlibs.sh
 RUN chmod u+x /bootstrap.sh && /bootstrap.sh
