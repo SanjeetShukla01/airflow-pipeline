@@ -3,8 +3,15 @@
 # DESCRIPTION: Apache Airflow Local Dev Environment
 
 ARG PYTHON_BASE_IMAGE="python:3.8-slim-bookworm"
+FROM $PYTHON_BASE_IMAGE
+LABEL maintainer="experient-labs"
+
+
+# Airflow
+## Version specific ARGs
 ARG AIRFLOW_VERSION="2.8.0"
 ARG AIRFLOW_PIP_VERSION=23.3.2
+ARG WATCHTOWER_VERSION=2.0.1
 ARG PIP_PROGRESS_BAR="on"
 
 ARG AIRFLOW_USER_HOME_DIR=/home/airflow
@@ -14,3 +21,13 @@ ARG AIRFLOW_HOME=${AIRFLOW_USER_HOME}
 ARG AIRFLOW_UID="50000"
 ARG ADDITIONAL_AIRFLOW_EXTRAS=""
 ARG ADDITIONAL_PYTHON_DEPS=""
+
+## General ARGs
+ARG AIRFLOW_USER_HOME=/usr/local/airflow
+ARG AIRFLOW_DEPS=""
+ARG PYTHON_DEPS=""
+ARG SYSTEM_DEPS=""
+ARG INDEX_URL=""
+ENV AIRFLOW_HOME=${AIRFLOW_USER_HOME}
+ENV PATH="$PATH:/usr/local/airflow/.local/bin:/root/.local/bin:/usr/local/airflow/.local/lib/python3.10/site-packages"
+ENV PYTHON_VERSION=3.11.6
