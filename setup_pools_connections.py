@@ -21,6 +21,7 @@ def setup_pools(basic_auth):
             print(f"Pool {pool_name} exists, updating.. {pool}")
             print(requests.patch(f"http://localhost:8080/api/v1/pools/{pool_name}", json=pool, auth=basic_auth))
 
+
 def wait_and_setup_connection(basic_auth):
     wait_time = 0
     while True:
