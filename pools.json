@@ -1,0 +1,22 @@
+[
+  {
+    "name": "default_pool",
+    "slots": 10000
+  },
+  {
+    "name": "dag_id_that_needs_this_pool",
+    "slots": 3
+  },
+  {
+    "name": "another_dag_id_that_needs_this_pool",
+    "slots": 4
+  },
+    {
+    "name": "dag_that_needs_this_pool",
+    "slots": 1
+  },
+  {
+    "name": "another_dag_that_needs_this_pool",
+    "slots": 1
+  }
+]
