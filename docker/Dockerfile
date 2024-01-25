@@ -1,8 +1,8 @@
-# AIRFLOW VERSION: 2.8.0
+# AIRFLOW VERSION: 2.8.1
 # AUTHOR: Sanjeet Shukla
 # DESCRIPTION: Apache Airflow Local Dev Environment
 
-FROM python:3.8-slim-bookworm
+FROM fedora:latest
 LABEL maintainer="experient-labs"
 
 # Airflow

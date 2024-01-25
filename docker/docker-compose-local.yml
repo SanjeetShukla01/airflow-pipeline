@@ -14,7 +14,7 @@ services:
             - "${PWD}/db-data:/var/lib/postgresql/data"
 
     local-runner:
-        image: sanjeet/airflow-local:2_7
+        image: airflow_dev:2_8
         restart: always
         depends_on:
             - postgres
