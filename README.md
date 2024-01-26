@@ -4,21 +4,21 @@
 Prerequisites
 macOS: Install Docker Desktop.
 Linux/Ubuntu: Install Docker Compose and Install Docker Engine.
-Windows: Windows Subsystem for Linux (WSL) to run the bash based command mwaa-local-env. Please follow Windows Subsystem for Linux Installation (WSL) and Using Docker in WSL 2, to get started.
+Windows: Windows Subsystem for Linux (WSL) to run the bash based command airflow-local-env. Please follow Windows Subsystem for Linux Installation (WSL) and Using Docker in WSL 2, to get started.
 
 
 ## Prerequisites
 
 - **macOS**: [Install Docker Desktop](https://docs.docker.com/desktop/).
 - **Linux/Ubuntu**: [Install Docker Compose](https://docs.docker.com/compose/install/) and [Install Docker Engine](https://docs.docker.com/engine/install/).
-- **Windows**: Windows Subsystem for Linux (WSL) to run the bash based command `mwaa-local-env`. Please follow [Windows Subsystem for Linux Installation (WSL)](https://docs.docker.com/docker-for-windows/wsl/) and [Using Docker in WSL 2](https://code.visualstudio.com/blogs/2020/03/02/docker-in-wsl2), to get started.
+- **Windows**: Windows Subsystem for Linux (WSL) to run the bash based command `airflow-local-env`. Please follow [Windows Subsystem for Linux Installation (WSL)](https://docs.docker.com/docker-for-windows/wsl/) and [Using Docker in WSL 2](https://code.visualstudio.com/blogs/2020/03/02/docker-in-wsl2), to get started.
 
 
 ## Get started
 
 ```bash
 git clone 
-cd aws-mwaa-local-runner
+cd airflow-local-runner
 ```
 
 ### Step one: Building the Docker image
@@ -179,3 +179,13 @@ Reference:
 - https://github.com/apache/airflow/blob/main/Dockerfile
 - https://github.com/aws/aws-mwaa-local-runner/blob/v2.7.2/docker/Dockerfile
 - https://github.com/anilkulkarni87/airflow-docker
+
+Errors:
+1. docker.errors.DockerException: Error while fetching server API version: ('Connection aborted.', FileNotFoundError(2, 'No such file or directory'))
+   - Docker Desktop was not running
+
+2. Pulling local-runner (airflow_dev:2_8)... ERROR: pull access denied for airflow_dev, repository does not exist or may require 'docker login': denied: requested access to the resource is denied
+   - airflow_dev:2.8 was not built, first build the airflow image then use docker compose up.
+
+3. postgres uses an image, skipping, local-runner uses an image, skipping. docker-compose -f docker-compose-local.yml build
+   - build **context** is missing in docker-compose file

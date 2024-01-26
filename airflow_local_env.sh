@@ -8,7 +8,7 @@ display_help() {
    echo "======================================"
    echo "   Airflow Local Runner CLI"
    echo "======================================"
-   echo "Syntax: mwaa-local-runner [command]"
+   echo "Syntax: airflow-local-runner [command]"
    echo "Airflow version $AIRFLOW_VERSION"
    echo "---commands---"
    echo "help                   Print CLI help"
