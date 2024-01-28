@@ -184,8 +184,8 @@ Errors:
 1. docker.errors.DockerException: Error while fetching server API version: ('Connection aborted.', FileNotFoundError(2, 'No such file or directory'))
    - Docker Desktop was not running
 
-2. Pulling local-runner (airflow_dev:2_8)... ERROR: pull access denied for airflow_dev, repository does not exist or may require 'docker login': denied: requested access to the resource is denied
-   - airflow_dev:2.8 was not built, first build the airflow image then use docker compose up.
+2. Pulling local-runner (airflow-dev:2_8)... ERROR: pull access denied for airflow-dev, repository does not exist or may require 'docker login': denied: requested access to the resource is denied
+   - airflow-dev:2.8 was not built, first build the airflow image then use docker compose up.
 
 3. postgres uses an image, skipping, local-runner uses an image, skipping. docker-compose -f docker-compose-local.yml build
    - build **context** is missing in docker-compose file

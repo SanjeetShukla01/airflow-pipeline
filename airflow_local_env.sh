@@ -68,27 +68,27 @@ test-requirements)
      echo "Container airflow-dev:$AIRFLOW_VERSION not built. Building locally."
      build_image
    fi
-   docker run -v $(pwd)/dags:/usr/local/airflow/dags -v $(pwd)/plugins:/usr/local/airflow/plugins -v $(pwd)/requirements:/usr/local/airflow/requirements -it airflow_dev:$AIRFLOW_VERSION test-requirements
+   docker run -v $(pwd)/dags:/usr/local/airflow/dags -v $(pwd)/plugins:/usr/local/airflow/plugins -v $(pwd)/requirements:/usr/local/airflow/requirements -it airflow-dev:$AIRFLOW_VERSION test-requirements
    ;;
 test-startup-script)
-   BUILT_IMAGE=$(docker images -q airflow_dev:$AIRFLOW_VERSION)
+   BUILT_IMAGE=$(docker images -q airflow-dev:$AIRFLOW_VERSION)
    if [[ -n "$BUILT_IMAGE" ]]; then
-      echo "Container airflow_dev:$AIRFLOW_VERSION exists. Skipping build"
+      echo "Container airflow-dev:$AIRFLOW_VERSION exists. Skipping build"
    else
-      echo "Container airflow_dev:$AIRFLOW_VERSION not built. Building locally."
+      echo "Container airflow-dev:$AIRFLOW_VERSION not built. Building locally."
       build_image
    fi
-   docker run -v $(pwd)/startup_script:/usr/local/airflow/startup -it airflow_dev:$AIRFLOW_VERSION test-startup-script
+   docker run -v $(pwd)/startup_script:/usr/local/airflow/startup -it airflow-dev:$AIRFLOW_VERSION test-startup-script
    ;;
 package-requirements)
-   BUILT_IMAGE=$(docker images -q airflow_dev:$AIRFLOW_VERSION)
+   BUILT_IMAGE=$(docker images -q airflow-dev:$AIRFLOW_VERSION)
    if [[ -n "$BUILT_IMAGE" ]]; then
-     echo "Container airflow_dev:$AIRFLOW_VERSION exists. Skipping build"
+     echo "Container airflow-dev:$AIRFLOW_VERSION exists. Skipping build"
    else
-     echo "Container airflow_dev:$AIRFLOW_VERSION not built. Building locally."
+     echo "Container airflow-dev:$AIRFLOW_VERSION not built. Building locally."
      build_image
    fi
-   docker run -v $(pwd)/dags:/usr/local/airflow/dags -v $(pwd)/plugins:/usr/local/airflow/plugins -v $(pwd)/requirements:/usr/local/airflow/requirements -it airflow_dev:$AIRFLOW_VERSION package-requirements
+   docker run -v $(pwd)/dags:/usr/local/airflow/dags -v $(pwd)/plugins:/usr/local/airflow/plugins -v $(pwd)/requirements:/usr/local/airflow/requirements -it airflow-dev:$AIRFLOW_VERSION package-requirements
    ;;
 build-image)
    build_image

@@ -14,7 +14,7 @@ services:
             - "${PWD}/db-data:/var/lib/postgresql/data"
 
     local-runner:
-        image: airflow_dev:2_8
+        image: airflow-dev:2_8
 #        build:
 #            context: .
 #            dockerfile: Dockerfile
