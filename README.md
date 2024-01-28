@@ -191,4 +191,14 @@ Errors:
    - build **context** is missing in docker-compose file
 
 4. The package `apache-airflow-providers-common-io:1.2.0` needs Apache Airflow 2.8.0+
-   - 
+   - apache-airflow-providers-common-io
+5. Need to fix requirement versio for below components:
+   - apache-airflow-providers-amazon 
+   - apache-airflow-providers-celery 
+   - apache-airflow-providers-common-sql 
+   - apache-airflow-providers-ftp 
+   - apache-airflow-providers-http 
+   - apache-airflow-providers-imap 
+   - apache-airflow-providers-postgres 
+   - apache-airflow-providers-sqlite 
+   - apache-airflow-providers-common-io:1.2.0
