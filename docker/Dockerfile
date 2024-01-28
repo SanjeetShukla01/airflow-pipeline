@@ -2,8 +2,8 @@
 # AUTHOR: Sanjeet Shukla
 # DESCRIPTION: Apache Airflow Local Dev Environment
 
-FROM fedora:latest
-LABEL maintainer="experient-labs"
+FROM amazonlinux:2023
+#LABEL maintainer="experient-labs"
 
 # Airflow
 ## Version specific ARGs

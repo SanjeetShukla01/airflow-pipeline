@@ -15,7 +15,9 @@ services:
 
     local-runner:
         image: airflow_dev:2_8
-        restart: always
+        build:
+            context: .
+            dockerfile: Dockerfile
         depends_on:
             - postgres
         environment:
