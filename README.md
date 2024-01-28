@@ -189,3 +189,6 @@ Errors:
 
 3. postgres uses an image, skipping, local-runner uses an image, skipping. docker-compose -f docker-compose-local.yml build
    - build **context** is missing in docker-compose file
+
+4. The package `apache-airflow-providers-common-io:1.2.0` needs Apache Airflow 2.8.0+
+   - 
