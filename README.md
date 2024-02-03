@@ -194,11 +194,12 @@ Errors:
    - apache-airflow-providers-common-io
 5. Need to fix requirement version for below components:
    - apache-airflow-providers-amazon==8.16.0
-   - apache-airflow-providers-celery 
-   - apache-airflow-providers-common-sql 
-   - apache-airflow-providers-ftp 
-   - apache-airflow-providers-http 
-   - apache-airflow-providers-imap 
-   - apache-airflow-providers-postgres 
-   - apache-airflow-providers-sqlite 
+   - apache-airflow-providers-celery==3.5.1 
+   - apache-airflow-providers-common-sql==1.10.0 
+   - apache-airflow-providers-ftp==3.7.0 
+   - apache-airflow-providers-http==4.8.0 
+   - apache-airflow-providers-imap==3.5.0 
+   - apache-airflow-providers-postgres==5.10.0 
+   - apache-airflow-providers-sqlite==3.7.0 
    - apache-airflow-providers-common-io:1.2.0
+   - apache-airflow-providers-snowflake==5.2.1
