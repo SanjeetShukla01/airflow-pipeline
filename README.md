@@ -192,8 +192,8 @@ Errors:
 
 4. The package `apache-airflow-providers-common-io:1.2.0` needs Apache Airflow 2.8.0+
    - apache-airflow-providers-common-io
-5. Need to fix requirement versio for below components:
-   - apache-airflow-providers-amazon 
+5. Need to fix requirement version for below components:
+   - apache-airflow-providers-amazon==2.8.1
    - apache-airflow-providers-celery 
    - apache-airflow-providers-common-sql 
    - apache-airflow-providers-ftp 
