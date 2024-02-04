@@ -48,10 +48,10 @@ COPY aws_config /home/codexecutor/.aws/config
 COPY --chown=codexecutor:codexecutor id_rsa.pub /home/codexecutor/.ssh/authorized_keys
 RUN chmod 600 /home/codexecutor/.ssh/authorized_keys && \
     pip3 install virtualenv && \
-    /home/codexecutor/.local/bin/virtualenv /home/codexecutor/environments/my-virtualenv-python37 && \
+    /home/codexecutor/.local/bin/virtualenv /home/codexecutor/environments/my-virtualenv-python3_11 && \
     pip3 install /home/codexecutor/environments && \
     pip3 install /home/codexecutor/environments/requirements.txt
-COPY *.jar /usr/local/s3-to-datawarehouse
+COPY *.jar /usr/local/sf_data_pipeline
 
 USER root
 EXPOSE 22
