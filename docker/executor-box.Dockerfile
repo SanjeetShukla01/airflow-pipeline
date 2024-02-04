@@ -10,8 +10,10 @@ RUN apt-get update &&  \
     ssh-keygen -A && \
     useradd -p $(openssl passwd codexecutoradmin) --create-home --shell /bin/bash --groups sudo codexecutor
 
+
+# Make repository for your common python code if there (my-common-python)
 RUN mkdir -p var/lib/my-python
-RUN chown -R codexecutor /var/lib/my-python
+RUN chown -R codexecutor /var/lib/my-common-python
 RUN service ssh start
 
 ARG MY_JOB_ENVIRONMENT=${MY_JOB_ENVIRONMENT}
@@ -21,8 +23,10 @@ ARG MY_SNOWFLAKE_DATABASE_OVERRIDE=${MY_SNOWFLAKE_DATABASE_OVERRIDE}
 ARG AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
 ARG AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
 ARG AWS_CLI_DOWNLOAD_PATH=${AWS_CLI_DOWNLOAD_PATH}
-ARG S3_TO_DATAWAREHOUSE=${S3_TO_DATAWAREHOUSE_JAR}
-RUN mkdir -p /usr/local/s3-to-dws && chown codexecutor:codexecutor /usr/local/s3-to-dwh
+ARG ADDITIOANL_JAR_PATH=${ADDITIOANL_JAR_PATH}
+# Make directory for your etl code
+RUN mkdir -p /usr/local/sf_data_pipeline && chown codexecutor:codexecutor /usr/local/sf_data_pipeline
+RUN mkdir -p /usr/local/pyspark_pipeline && chown codexecutor:codexecutor /usr/local/pyspark_pipeline
 
 USER codexecutor
 RUN mkdir -p /home/codexecutor/environments
@@ -36,9 +40,10 @@ RUN echo "export MY_JOB_ENVIRONMENT=$MY_JOB_ENVIRONMENT" > home/codexecutor/.bas
     echo "[default]" >> /home/codexecutor/.aws/credentials && \
     echo "AWS_ACCESS_KEY=$AWS_ACCESS_KEY" >> /home/codexecutor/.aws/credentials && \
     echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> /home/codexecutor/.aws/credentials && \
-    echo "AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN" >> /home/codexecutor/.aws/credentials
+    echo "AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN" >> /home/codexecutor/.aws/credentials \
+# Copy common python setup.py to environments
 COPY setup.py /home/codexecutor/environments
-COPY /var/lib/my-python/my-etl-warehouse/requirements.txt /home/codexecutor/environments
+COPY /var/lib/my-common-python/sf-data-pipeline/requirements.txt /home/codexecutor/environments
 COPY aws_config /home/codexecutor/.aws/config
 COPY --chown=codexecutor:codexecutor id_rsa.pub /home/codexecutor/.ssh/authorized_keys
 RUN chmod 600 /home/codexecutor/.ssh/authorized_keys && \
