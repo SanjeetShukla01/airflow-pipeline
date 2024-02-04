@@ -112,6 +112,28 @@ fi
 
 case "$1" in
   local-runner)
+#    # if S3_PLUGINS_PATH
+#    if [ -n "$S3_PLUGINS_PATH" ]; then
+#      echo "Downloading $S3_PLUGINS_PATH"
+#      mkdir -p $AIRFLOW_HOME/plugins
+#      cd $AIRFLOW_HOME/plugins
+#      aws s3 cp $S3_PLUGINS_PATH plugins.zip
+#      unzip -o plugins.zip
+#      rm plugins.zip
+#    fi
+#    # if S3_DAGS_PATH
+#    if [ -n "$S3_DAGS_PATH" ]; then
+#      echo "Syncing $S3_DAGS_PATH"
+#      mkdir -p $AIRFLOW_HOME/dags
+#      cd $AIRFLOW_HOME/dags
+#      aws s3 sync --exact-timestamp --delete $S3_DAGS_PATH .
+#    fi
+#    # if S3_REQUIREMENTS_PATH
+#    if [ -n "$S3_REQUIREMENTS_PATH" ]; then
+#      echo "Downloading $S3_REQUIREMENTS_PATH"
+#      mkdir -p $AIRFLOW_HOME/requirements
+#      aws s3 cp $S3_REQUIREMENTS_PATH $AIRFLOW_HOME/$REQUIREMENTS_FILE
+#    fi
     execute_startup_script
     source stored_env
     export AIRFLOW_HOME="/usr/local/airflow"
