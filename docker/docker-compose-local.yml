@@ -2,6 +2,8 @@ version: '3.7'
 services:
     postgres:
         image: postgres:11-alpine
+        networks:
+            - common
         environment:
             - POSTGRES_USER=airflow
             - POSTGRES_PASSWORD=airflow
@@ -13,16 +15,35 @@ services:
         volumes:
             - "${PWD}/db-data:/var/lib/postgresql/data"
 
+    codexecutor:
+        image: codexecutor:latest
+        networks:
+            - common
+        volumes:
+            - "${BASE_DIR}/my-common-python:/var/lib/my-python/my-common-python"
+            - "${BASE_DIR}/sf_data_pipeline:/var/lib/my-python/sf_data_pipeline"
+            - "${BASE_DIR}/pyspark_pipeline:/var/lib/my-python/pyspark_pipeline"
+        ports:
+            - "2222:22"
+
     local-runner:
         image: airflow-dev:2_8
-#        build:
-#            context: .
-#            dockerfile: Dockerfile
+        restart: always
+        networks:
+            - common
         depends_on:
             - postgres
         environment:
             - LOAD_EX=n
             - EXECUTOR=Local
+            - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+            - BASE_DIR=${BASE_DIR}
+            - AIRFLOW_VAR_SSH_CONNECTION_ID=ssh_codexecutor_local
+#            - AIRFLOW_VAR_DATA_MONITORING_METRIC_PUBLISHER_FUNCTION_NAME=test-data-monitoring-database_to_metric_publisher
+            - AIRFLOW_VAR_S3_ABC_REPORT_URI=s3://test-sandbox.example.com/test/theabc_supply_vendor_reporting
+            - AIRFLOW_VAR_AMI_S3_LOOKER_EXPORT_PATH=s3://test-sandbox.example.com/test/looker
+            - AIRFLOW_VAR_AMI_S3_FINAL_DESTINATION_PATH=s3://test-sandbox.example.com/test/landing
+            - AIRFLOW_VAR_S3_TO_MYSQL_BUCKET=s3://test-sandbox.example.com/test/normalizedetl
         logging:
             options:
                 max-size: 10m
