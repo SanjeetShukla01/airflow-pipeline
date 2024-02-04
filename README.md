@@ -201,5 +201,5 @@ Errors:
    - apache-airflow-providers-imap==3.5.0 
    - apache-airflow-providers-postgres==5.10.0 
    - apache-airflow-providers-sqlite==3.7.0 
-   - apache-airflow-providers-common-io:1.2.0
+   - apache-airflow-providers-common-io==1.2.0
    - apache-airflow-providers-snowflake==5.2.1
