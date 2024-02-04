@@ -8,7 +8,7 @@ RUN apt-get update &&  \
     mkdir /var/run/sshd && \
     chmod 0755 /var/run/sshd && \
     ssh-keygen -A && \
-    useradd -p $(openssl passwd codexecutorpwd) --create-home --shell /bin/bash --groups sudo codexecutor
+    useradd -p $(openssl passwd codexecutoradmin) --create-home --shell /bin/bash --groups sudo codexecutor
 
 RUN mkdir -p var/lib/my-python
 RUN chown -R codexecutor /var/lib/my-python
