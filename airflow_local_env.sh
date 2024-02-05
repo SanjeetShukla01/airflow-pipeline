@@ -53,6 +53,17 @@ validate_prereqs() {
 }
 
 build_image() {
+    cp $BASE_DIR/my-common-python/setup.py ./docker
+    cp $BASE_DIR/*.jar ./docker
+    docker build --rm --compress -t codexecutor:latest ./docker -f ./docker/codexecutor.Dockerfile \
+    --build-arg MY_JOB_ENVIRONMENT=$MY_JOB_ENVIRONMENT \
+    --build-arg SAVE_TEMP_TABLE=$SAVE_TEMP_TABLE \
+    --build-arg MY_SNOWFLAKE_WAREHOUSE_OVERRIDE=$MY_SNOWFLAKE_WAREHOUSE_OVERRIDE \
+    --build-arg MY_SNOWFLAKE_DATABASE_OVERRIDE=$MY_SNOWFLAKE_DATABASE_OVERRIDE \
+    --build-arg AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+    --build-arg AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+    --build-arg AWS_CLI_DOWNLOAD_PATH=$AWS_CLI_DOWNLOAD_PATH \
+    --build-arg S3_TO_DATAWAREHOUSE=$S3_TO_DATAWAREHOUSE_JAR
    docker build --rm --compress -t airflow-dev:$AIRFLOW_VERSION ./docker
 }
 
