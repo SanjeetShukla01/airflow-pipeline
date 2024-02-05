@@ -1,9 +1,8 @@
 Why do we need ssh, and ssh-keygen?
 
-User
+
 I have a docker container (c1) that has apache spark installed in it, I have another docker container (c2) that has pyspark code. How to run spark code from c2 into c1?
 
-ChatGPT
 To run Spark code from one Docker container (c2) against an Apache Spark installation in another Docker container (c1), you'll need to ensure that the containers can communicate with each other and that the necessary configurations are set up. Here are the general steps:
 
 Networking:
@@ -11,11 +10,14 @@ Networking:
 Make sure that both containers are on the same Docker network so that they can communicate with each other. You can create a user-defined bridge network for this purpose.
 bash
 Copy code
-# Create a network
+- Create a network
+
 docker network create spark_network
 
-# Run c1 on the spark_network
+- Run c1 on the spark_network
+```bash
 docker run --network=spark_network --name=c1 your_spark_image
+```
 
 # Run c2 on the spark_network
 docker run --network=spark_network --name=c2 your_pyspark_image
