@@ -26,6 +26,20 @@ services:
         ports:
             - "2222:22"
 
+    spark-node:
+        image: spark1n-image
+        container_name: spark1n
+        hostname: spark-driver
+        build:
+            context: .
+            dockerfile: spark.Dockerfile
+        ports:
+            - 4040:4040
+            - 4041:4041
+            - 18080:18080
+        volumes:
+            - ./app:/home/sam/app
+
     local-runner:
         image: airflow-dev:2_8
         restart: always
