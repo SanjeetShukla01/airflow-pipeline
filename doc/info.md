@@ -50,5 +50,5 @@ Note: Make sure that both containers have the necessary dependencies installed a
 
 
 
-
+For Spark Cluster, it will need one more dockerfile for spark. 
 
