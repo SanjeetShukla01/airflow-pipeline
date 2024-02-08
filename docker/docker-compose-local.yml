@@ -16,7 +16,7 @@ services:
             - "${PWD}/db-data:/var/lib/postgresql/data"
 
     codexecutor:
-        image: codexecutor:latest
+        image: edgenode:latest
         networks:
             - common
         volumes:
