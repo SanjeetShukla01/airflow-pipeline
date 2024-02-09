@@ -55,7 +55,7 @@ validate_prereqs() {
 build_image() {
     cp $BASE_DIR/my-common-python/setup.py ./docker
     cp $BASE_DIR/*.jar ./docker
-    docker build --rm --compress -t codexecutor:latest ./docker -f ./docker/codexecutor.Dockerfile \
+    docker build --rm --compress -t edgenode:latest ./docker -f ./docker/edgenode.Dockerfile \
     --build-arg MY_JOB_ENVIRONMENT=$MY_JOB_ENVIRONMENT \
     --build-arg SAVE_TEMP_TABLE=$SAVE_TEMP_TABLE \
     --build-arg MY_SNOWFLAKE_WAREHOUSE_OVERRIDE=$MY_SNOWFLAKE_WAREHOUSE_OVERRIDE \
