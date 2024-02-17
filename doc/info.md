@@ -64,3 +64,5 @@ For Spark Cluster, it will need one more dockerfile for spark.
 
 
 ### Work in Rust
+
+### Create pipeline in rust 
