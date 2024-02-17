@@ -64,7 +64,8 @@ build_image() {
     --build-arg AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
     --build-arg AWS_CLI_DOWNLOAD_PATH=$AWS_CLI_DOWNLOAD_PATH \
     --build-arg S3_TO_DATAWAREHOUSE=$S3_TO_DATAWAREHOUSE_JAR
-   docker build --rm --compress -t airflow-dev:$AIRFLOW_VERSION ./docker
+   docker build --rm --compress -t airflow-dev:$AIRFLOW_VERSION ./docker -f ./docker/airflow.Dockerfile
+   docker build --rm --compress -t spark1n:latest ./docker -f ./docker/spark.Dockerfile
 }
 
 case "$1" in
