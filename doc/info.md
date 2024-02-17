@@ -62,7 +62,4 @@ For Spark Cluster, it will need one more dockerfile for spark.
 
 ### Start writing airflow jobs
 
-
-### Work in Rust
-
 ### Create pipeline in rust 
