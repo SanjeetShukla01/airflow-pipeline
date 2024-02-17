@@ -15,7 +15,7 @@ services:
         volumes:
             - "${PWD}/db-data:/var/lib/postgresql/data"
 
-    codexecutor:
+    executor:
         image: edgenode:latest
         networks:
             - common
@@ -52,7 +52,7 @@ services:
             - EXECUTOR=Local
             - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
             - BASE_DIR=${BASE_DIR}
-            - AIRFLOW_VAR_SSH_CONNECTION_ID=ssh_codexecutor_local
+            - AIRFLOW_VAR_SSH_CONNECTION_ID=ssh_executor_local
             - AIRFLOW_VAR_S3_ABC_REPORT_URI=s3://test-sandbox.example.com/test/theabc_supply_vendor_reporting
             - AIRFLOW_VAR_AMI_S3_LOOKER_EXPORT_PATH=s3://test-sandbox.example.com/test/looker
             - AIRFLOW_VAR_AMI_S3_FINAL_DESTINATION_PATH=s3://test-sandbox.example.com/test/landing

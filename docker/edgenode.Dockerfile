@@ -25,8 +25,8 @@ ARG AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
 ARG AWS_CLI_DOWNLOAD_PATH=${AWS_CLI_DOWNLOAD_PATH}
 ARG ADDITIOANL_JAR_PATH=${ADDITIOANL_JAR_PATH}
 # Make directory for your etl code
-RUN mkdir -p /usr/local/sf_data_pipeline && chown codexecutor:codexecutor /usr/local/sf_data_pipeline
-RUN mkdir -p /usr/local/pyspark_pipeline && chown codexecutor:codexecutor /usr/local/pyspark_pipeline
+RUN mkdir -p /usr/local/sf_data_pipeline && chown executor:executor /usr/local/sf_data_pipeline
+RUN mkdir -p /usr/local/pyspark_pipeline && chown executor:executor /usr/local/pyspark_pipeline
 
 USER executor
 RUN mkdir -p /home/executor/environments
@@ -44,13 +44,13 @@ RUN echo "export MY_JOB_ENVIRONMENT=$MY_JOB_ENVIRONMENT" > home/executor/.bash_p
 # Copy common python setup.py to environments
 COPY setup.py /home/executor/environments
 COPY /var/lib/my-common-python/sf-data-pipeline/requirements.txt /home/executor/environments
-COPY aws_config /home/codexecutor/.aws/config
-COPY --chown=codexecutor:codexecutor id_rsa.pub /home/codexecutor/.ssh/authorized_keys
-RUN chmod 600 /home/codexecutor/.ssh/authorized_keys && \
+COPY aws_config /home/executor/.aws/config
+COPY --chown=executor:executor id_rsa.pub /home/executor/.ssh/authorized_keys
+RUN chmod 600 /home/executor/.ssh/authorized_keys && \
     pip3 install virtualenv && \
-    /home/codexecutor/.local/bin/virtualenv /home/codexecutor/environments/my-virtualenv-python3_11 && \
-    pip3 install /home/codexecutor/environments && \
-    pip3 install /home/codexecutor/environments/requirements.txt
+    /home/executor/.local/bin/virtualenv /home/executor/environments/my-virtualenv-python3_11 && \
+    pip3 install /home/executor/environments && \
+    pip3 install /home/executor/environments/requirements.txt
 COPY *.jar /usr/local/sf_data_pipeline
 
 USER root
