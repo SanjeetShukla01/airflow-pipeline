@@ -52,9 +52,14 @@ validate_prereqs() {
    fi
 }
 
+generate_ssh_key(){
+  rm -rf "./docker/id_rsa" && ssh-keygen -t rsa -C "codexecutor@gmail.com" -f "./docker/id_rsa" -P "" -q
+}
+
 build_image() {
     cp $BASE_DIR/my-common-python/setup.py ./docker
     cp $BASE_DIR/*.jar ./docker
+    generate_ssh_key
     docker build --rm --compress -t edgenode:latest ./docker -f ./docker/edgenode.Dockerfile \
     --build-arg MY_JOB_ENVIRONMENT=$MY_JOB_ENVIRONMENT \
     --build-arg SAVE_TEMP_TABLE=$SAVE_TEMP_TABLE \
@@ -64,8 +69,8 @@ build_image() {
     --build-arg AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
     --build-arg AWS_CLI_DOWNLOAD_PATH=$AWS_CLI_DOWNLOAD_PATH \
     --build-arg S3_TO_DATAWAREHOUSE=$S3_TO_DATAWAREHOUSE_JAR
-   docker build --rm --compress -t airflow-dev:$AIRFLOW_VERSION ./docker -f ./docker/airflow.Dockerfile
-   docker build --rm --compress -t spark1n:latest ./docker -f ./docker/spark.Dockerfile
+#   docker build --rm --compress -t airflow-dev:$AIRFLOW_VERSION ./docker -f ./docker/airflow.Dockerfile
+#   docker build --rm --compress -t spark1n:latest ./docker -f ./docker/spark.Dockerfile
 }
 
 case "$1" in
@@ -105,6 +110,9 @@ package-requirements)
 build-image)
    build_image
    ;;
+generate-ssh-key)
+  generate_ssh_key
+  ;;
 reset-db)
    docker-compose -p $DOCKER_COMPOSE_PROJECT_NAME -f ./docker/docker-compose-resetdb.yml up --abort-on-container-exit
    ;;

@@ -187,7 +187,7 @@ Errors:
 2. Pulling local-runner (airflow-dev:2_8)... ERROR: pull access denied for airflow-dev, repository does not exist or may require 'docker login': denied: requested access to the resource is denied
    - airflow-dev:2.8 was not built, first build the airflow image then use docker compose up.
 
-3. postgres uses an image, skipping, local-runner uses an image, skipping. docker-compose -f docker-compose-local.yml build
+3. Postgres uses an image, skipping, local-runner uses an image, skipping. docker-compose -f docker-compose-local.yml build
    - build **context** is missing in docker-compose file
 
 4. The package `apache-airflow-providers-common-io:1.2.0` needs Apache Airflow 2.8.0+
@@ -203,3 +203,5 @@ Errors:
    - apache-airflow-providers-sqlite==3.7.0 
    - apache-airflow-providers-common-io==1.2.0
    - apache-airflow-providers-snowflake==5.2.1
+
+6. COPY --chown=executor:executor id_rsa.pub /home/executor/.ssh/authorized_keys

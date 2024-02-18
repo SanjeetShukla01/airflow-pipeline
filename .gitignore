@@ -7,3 +7,5 @@ dags/**/*.pyc
 /logs
 /db-data
 .DS_Store
+id_rsa
+id_rsa.pub
