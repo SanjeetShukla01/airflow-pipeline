@@ -36,4 +36,12 @@ Errors:
     The mount directory need to be present on host machine
     Temporary solution: comment it untill host has code directory to mount
 
-9. 
+9. While running python code to create airflow connection, it was throwing following error: <Response [401]>
+    To reproduce/test: curl -X GET -u admin:test http://localhost:8080/api/v1/connections/ssh_executor_local -v
+    or run `setup_pools_connections.py`
+    Did following changes: 
+    # Commenting out user session based authentication for API
+    ; auth_backends = airflow.api.auth.backend.session
+
+    # Enabling basic authentication for api based on username:password
+    >> auth_backends = airflow.api.auth.backend.basic_auth

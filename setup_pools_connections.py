@@ -28,14 +28,14 @@ def wait_and_setup_connection(basic_auth):
         try:
             print("Checking if SSH connection exists..")
             response = requests.get("http://localhost:8080/api/v1/connections/ssh_executor_local", auth=basic_auth)
-            print(response)
+            print(str(response.status_code) + ":" + response.text)
             if response.status_code == 404:
                 print("SSH connection does not exist, setting up..")
                 ssh_conn = {
                     "connection_id": "ssh_executor_local",
                     "conn_type": "ssh",
-                    "host": "executor",
-                    "login": "executor",
+                    "host": "localhost",
+                    "login": "admin",
                     "extra": "{\"key_file\":\"/usr/local/airflow/.ssh/id_rsa\"}"
                 }
                 requests.post("http://localhost:8080/api/v1/connections", json=ssh_conn, auth=basic_auth)
@@ -51,4 +51,7 @@ def wait_and_setup_connection(basic_auth):
 if __name__ == "__main__":
     basic_auth = HTTPBasicAuth('admin', 'test')
     wait_and_setup_connection(basic_auth)
-    setup_pools(basic_auth)
+    # setup_pools(basic_auth)
+    # response = requests.get("https://localhost:8080/api/v1/connections/ssh_executor_local", auth=basic_auth)
+    # print(response.status_code)
+    # print(response.text)

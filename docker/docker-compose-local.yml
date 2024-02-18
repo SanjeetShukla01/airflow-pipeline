@@ -19,7 +19,7 @@ services:
         image: edgenode:latest
         networks:
             - common
-        volumes:
+#        volumes:
 #            - "${BASE_DIR}/my-common-python:/var/lib/my-python/my-common-python"
 #            - "${BASE_DIR}/sf_data_pipeline:/var/lib/my-python/sf_data_pipeline"
 #            - "${BASE_DIR}/pyspark_pipeline:/var/lib/my-python/pyspark_pipeline"
@@ -42,6 +42,7 @@ services:
 
     local-runner:
         image: airflow-dev:2_8
+        hostname: executor
         restart: always
         networks:
             - common
