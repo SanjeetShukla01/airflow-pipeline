@@ -56,6 +56,7 @@ For Spark Cluster, it will need one more dockerfile for spark.
 
 
 ### Start writing airflow jobs
+    work on version of spark and edgenode
 
 ### Start on SQL runner library
 

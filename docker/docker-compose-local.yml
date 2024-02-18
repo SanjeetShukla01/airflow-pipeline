@@ -20,25 +20,25 @@ services:
         networks:
             - common
         volumes:
-            - "${BASE_DIR}/my-common-python:/var/lib/my-python/my-common-python"
-            - "${BASE_DIR}/sf_data_pipeline:/var/lib/my-python/sf_data_pipeline"
-            - "${BASE_DIR}/pyspark_pipeline:/var/lib/my-python/pyspark_pipeline"
+#            - "${BASE_DIR}/my-common-python:/var/lib/my-python/my-common-python"
+#            - "${BASE_DIR}/sf_data_pipeline:/var/lib/my-python/sf_data_pipeline"
+#            - "${BASE_DIR}/pyspark_pipeline:/var/lib/my-python/pyspark_pipeline"
         ports:
             - "2222:22"
 
-    spark-node:
-        image: spark1n-image
-        container_name: spark1n
-        hostname: spark-driver
-        build:
-            context: .
-            dockerfile: spark.Dockerfile
-        ports:
-            - 4040:4040
-            - 4041:4041
-            - 18080:18080
-        volumes:
-            - ./app:/home/sam/app
+#    spark-node:
+#        image: spark1n-image
+#        container_name: spark1n
+#        hostname: spark-driver
+#        build:
+#            context: .
+#            dockerfile: spark.Dockerfile
+#        ports:
+#            - 4040:4040
+#            - 4041:4041
+#            - 18080:18080
+#        volumes:
+#            - ./app:/home/sam/app
 
     local-runner:
         image: airflow-dev:2_8
@@ -79,3 +79,6 @@ services:
             retries: 3
         env_file:
             - ./config/.env.localrunner
+
+networks:
+  common:
