@@ -12,6 +12,7 @@ display_help() {
    echo "Airflow version $AIRFLOW_VERSION"
    echo "---commands---"
    echo "help                   Print CLI help"
+   echo "generate-ssh-key       Generate ssh key in root directory"
    echo "build-image            Build Image Locally"
    echo "reset-db               Reset local PostgresDB container."
    echo "start                  Start Airflow local environment. (LocalExecutor, Using postgres DB)"

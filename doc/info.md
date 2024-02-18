@@ -55,8 +55,8 @@ Note: Make sure that both containers have the necessary dependencies installed a
 For Spark Cluster, it will need one more dockerfile for spark. 
 
 
-### Start on SQL runner library
-
 ### Start writing airflow jobs
+
+### Start on SQL runner library
 
 ### Create pipeline in rust 
