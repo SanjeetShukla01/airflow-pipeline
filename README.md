@@ -26,6 +26,7 @@ cd airflow-local-runner
 Build the Docker container image using the following command:
 
 ```bash
+./airflow-local-env generate-ssh-keys
 ./airflow-local-env build-image
 ```
 
@@ -204,4 +205,5 @@ Errors:
    - apache-airflow-providers-common-io==1.2.0
    - apache-airflow-providers-snowflake==5.2.1
 
-6. COPY --chown=executor:executor id_rsa.pub /home/executor/.ssh/authorized_keys
+6. error: COPY --chown=executor:executor id_rsa.pub /home/executor/.ssh/authorized_keys
+   run `generate_ssh_key` before running build. 

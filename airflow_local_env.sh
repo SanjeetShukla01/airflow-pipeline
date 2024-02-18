@@ -59,7 +59,6 @@ generate_ssh_key(){
 build_image() {
     cp $BASE_DIR/my-common-python/setup.py ./docker
     cp $BASE_DIR/*.jar ./docker
-    generate_ssh_key
     docker build --rm --compress -t edgenode:latest ./docker -f ./docker/edgenode.Dockerfile \
     --build-arg MY_JOB_ENVIRONMENT=$MY_JOB_ENVIRONMENT \
     --build-arg SAVE_TEMP_TABLE=$SAVE_TEMP_TABLE \
