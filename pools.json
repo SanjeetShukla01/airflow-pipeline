@@ -4,15 +4,15 @@
     "slots": 10000
   },
   {
-    "name": "dag_id_that_needs_this_pool",
+    "name": "spark_dags",
     "slots": 3
   },
   {
-    "name": "another_dag_id_that_needs_this_pool",
+    "name": "snowflake_dags",
     "slots": 4
   },
     {
-    "name": "dag_that_needs_this_pool",
+    "name": "intesive_dags",
     "slots": 1
   },
   {

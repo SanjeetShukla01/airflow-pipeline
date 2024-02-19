@@ -51,7 +51,4 @@ def wait_and_setup_connection(basic_auth):
 if __name__ == "__main__":
     basic_auth = HTTPBasicAuth('admin', 'test')
     wait_and_setup_connection(basic_auth)
-    # setup_pools(basic_auth)
-    # response = requests.get("https://localhost:8080/api/v1/connections/ssh_executor_local", auth=basic_auth)
-    # print(response.status_code)
-    # print(response.text)
+    setup_pools(basic_auth)
