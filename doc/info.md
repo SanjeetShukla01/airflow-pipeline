@@ -56,8 +56,22 @@ For Spark Cluster, it will need one more dockerfile for spark.
 
 
 ### Start writing airflow jobs
-    work on version of spark and edgenode
+- Create a separate airlfow repo
+- Airflow repo will mount to this environment as links/mount
+    - DAGS
+    - Plugins
+- Same airflow repo will contain DAGS and Common Code
+- Work on version of spark and edgenode
+    
 
 ### Start on SQL runner library
+- The library will be separate from ETL code
+- Add tests to the sql runner library 
+- Should have all basic features:
+  - Logging, Dry Run, Save Temp Table etc.
+
+
+
+
 
 ### Create pipeline in rust 
