@@ -12,11 +12,7 @@
     "slots": 4
   },
     {
-    "name": "intesive_dags",
+    "name": "kafka_dags",
     "slots": 1
   }
-//  , {
-//    "name": "another_dag_that_needs_this_pool",
-//    "slots": 1
-//  }
 ]
