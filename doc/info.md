@@ -61,7 +61,7 @@ For Spark Cluster, it will need one more dockerfile for spark.
 - There is already a connection to edge_node.
 - Install vim in executor node -- Added,not tested yet still pushing
 - Find out a way to deploy and run spark job through airflow. #TODO
-
+- Add log directory to store log on local machine. 
 
 ### Start writing airflow jobs
 - Create a separate airlfow repo
