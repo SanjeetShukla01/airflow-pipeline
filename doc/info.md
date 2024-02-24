@@ -57,6 +57,9 @@ For Spark Cluster, it will need one more dockerfile for spark.
 
 ### Link ariflow dag repo with de Environment repo.
 - Create link to dag and plugin folder.
+- Create connection in airflow to connect to Spark Container.
+- There is already a connection to edge_node.
+- 
 
 
 ### Start writing airflow jobs

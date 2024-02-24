@@ -17,6 +17,7 @@ services:
 
     executor:
         image: edgenode:latest
+        hostname: executor
         networks:
             - common
 #        volumes:
@@ -42,7 +43,7 @@ services:
 
     local-runner:
         image: airflow-dev:2_8
-        hostname: executor
+        hostname: airflow
         restart: always
         networks:
             - common
