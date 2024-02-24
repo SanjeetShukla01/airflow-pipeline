@@ -59,6 +59,7 @@ For Spark Cluster, it will need one more dockerfile for spark.
 - Create link to dag and plugin folder.
 - Create connection in airflow to connect to Spark Container.
 - There is already a connection to edge_node.
+- Install vim in executor node
 - 
 
 

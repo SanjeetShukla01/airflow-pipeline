@@ -45,3 +45,7 @@ Errors:
 
     # Enabling basic authentication for api based on username:password
     >> auth_backends = airflow.api.auth.backend.basic_auth
+
+
+10. Error while running code using ssh connection: FileNotFoundError: [Errno 2] No such file or directory: '/usr/local/airflow/.ssh/id_rsa'
+    
