@@ -9,3 +9,5 @@ dags/**/*.pyc
 .DS_Store
 id_rsa
 id_rsa.pub
+/dags
+/plugins

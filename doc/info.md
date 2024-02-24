@@ -55,6 +55,10 @@ Note: Make sure that both containers have the necessary dependencies installed a
 For Spark Cluster, it will need one more dockerfile for spark. 
 
 
+### Link ariflow dag repo with de Environment repo.
+- Create link to dag and plugin folder.
+
+
 ### Start writing airflow jobs
 - Create a separate airlfow repo
 - Airflow repo will mount to this environment as links/mount
@@ -63,6 +67,8 @@ For Spark Cluster, it will need one more dockerfile for spark.
 - Same airflow repo will contain DAGS and Common Code
 - Work on version of spark and edgenode
     
+
+
 
 ### Start on SQL runner library
 - The library will be separate from ETL code

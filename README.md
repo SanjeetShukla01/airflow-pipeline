@@ -18,7 +18,7 @@ Windows: Windows Subsystem for Linux (WSL) to run the bash based command airflow
 
 ```bash
 git clone 
-cd airflow-local-runner
+cd de-local-runner
 ```
 
 ### Step one: Building the Docker image
@@ -26,11 +26,21 @@ cd airflow-local-runner
 Build the Docker container image using the following command:
 
 ```bash
-./airflow-local-env generate-ssh-keys
-./airflow-local-env build-image
+./de-local-env generate-ssh-keys
+./de-local-env build-image
 ```
 
 **Note**: it takes several minutes to build the Docker image locally.
+
+
+### Before starting the docker environment:
+Make sure that dags and plugins directory is added to this repo.
+In my case I will use ariflow-dags repo to add dags using below steps.
+```
+ln -s ../airflow-dags/dags/ .
+ln -s ../airflow-dags/plugins/ .
+```
+
 
 ### Step two: Running Apache Airflow
 
@@ -39,7 +49,7 @@ Build the Docker container image using the following command:
 Runs a local Apache Airflow environment that is a close representation of MWAA by configuration.
 
 ```bash
-./airflow-local-env start
+./de-local-env start
 ```
 
 To stop the local environment, Ctrl+C on the terminal and wait till the local runner and the postgres containers are stopped.
@@ -70,7 +80,7 @@ The following section describes where to add your DAG code and supporting files.
 2. To test a requirements.txt without running Apache Airflow, use the following script:
 
 ```bash
-./mwaa-local-env test-requirements
+./de-local-env test-requirements
 ```
 
 Let's say you add `aws-batch==0.6` to your `requirements/requirements.txt` file. You should see an output similar to:
@@ -93,7 +103,7 @@ Successfully installed aws-batch-0.6 awscli-1.19.21 botocore-1.20.21 docutils-0.
 3. To package the necessary WHL files for your requirements.txt without running Apache Airflow, use the following script:
 
 ```bash
-./mwaa-local-env package-requirements
+./de-local-env package-requirements
 ```
 
 For example usage see [Installing Python dependencies using PyPi.org Requirements File Format Option two: Python wheels (.whl)](https://docs.aws.amazon.com/mwaa/latest/userguide/best-practices-dependencies.html#best-practices-dependencies-python-wheels).
