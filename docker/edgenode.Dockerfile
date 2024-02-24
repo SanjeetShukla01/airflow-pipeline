@@ -4,7 +4,7 @@ FROM python:3.11.6
 ENV PYTHONBUFFERED = 1
 
 RUN apt-get update &&  \
-    DEBIAN_FRONTEND=noninteractive TZ=Etc/IST apt-get install -y netcat-traditional ssh iputils-ping sudo python3-pip default-jdk && \
+    DEBIAN_FRONTEND=noninteractive TZ=Etc/IST apt-get install -y netcat-traditional ssh iputils-ping sudo python3-pip default-jdk vim && \
     mkdir /var/run/sshd && \
     chmod 0755 /var/run/sshd && \
     ssh-keygen -A && \
