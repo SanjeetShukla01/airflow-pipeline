@@ -34,8 +34,8 @@ def wait_and_setup_connection(basic_auth):
                 ssh_conn = {
                     "connection_id": "ssh_executor_local",
                     "conn_type": "ssh",
-                    "host": "localhost",
-                    "login": "admin",
+                    "host": "executor",
+                    "login": "executor",
                     "extra": "{\"key_file\":\"/usr/local/airflow/.ssh/id_rsa\"}"
                 }
                 requests.post("http://localhost:8080/api/v1/connections", json=ssh_conn, auth=basic_auth)

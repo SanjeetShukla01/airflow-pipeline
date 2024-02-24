@@ -48,4 +48,9 @@ Errors:
 
 
 10. Error while running code using ssh connection: FileNotFoundError: [Errno 2] No such file or directory: '/usr/local/airflow/.ssh/id_rsa'
-    
+
+11. Not able to load log when I up the container next time. executor *** Could not read served logs: [Errno 111] Connection refused
+    Logs are stored in home directory/logs in airflow host
+    Due to recreation of image, logs might have lost
+    #TODO: Better Keep logs in local using volume. 
+
