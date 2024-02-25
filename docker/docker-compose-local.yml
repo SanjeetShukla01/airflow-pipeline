@@ -64,14 +64,15 @@ services:
                 max-size: 10m
                 max-file: "3"
         volumes:
-            - /usr/local/airflow/logs:${PWD}/logs:ro
+#            - airflow_logs_volume:/usr/local/airflow/logs
+            - "${PWD}/logs:/usr/local/airflow/logs"
             - "${PWD}/dags:/usr/local/airflow/dags"
-            - "${PWD}/plugins:/usr/local/airflow/plugins"
-            - "${PWD}/requirements:/usr/local/airflow/requirements"
-            - "${PWD}/../airflow_common_code:/usr/local/airflow_common_code"
-            - "${PWD}/../etl_code:/usr/local/etl_code"
-            - "${PWD}/../airflow_pipeline:/usr/local/airlfow_pipeline"
-            - "${PWD}/startup_script:/usr/local/airflow/startup"
+#            - "${PWD}/plugins:/usr/local/airflow/plugins"
+#            - "${PWD}/requirements:/usr/local/airflow/requirements"
+#            - "${PWD}/../airflow_common_code:/usr/local/airflow_common_code"
+#            - "${PWD}/../etl_code:/usr/local/etl_code"
+#            - "${PWD}/../airflow_pipeline:/usr/local/airlfow_pipeline"
+#            - "${PWD}/startup_script:/usr/local/airflow/startup"
         ports:
             - "8080:8080"
         command: local-runner

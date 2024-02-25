@@ -54,3 +54,7 @@ Errors:
     Due to recreation of image, logs might have lost
     #TODO: Better Keep logs in local using volume. 
 
+12. Permission error: while mounting volume between local directory and container directory, It was throwing permission error.
+    on analysis I found that issue was due to access of local directory, hence docker container was not able to write to the local directory
+    **Solution**: chmod local `logs` directory 
+
