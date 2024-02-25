@@ -47,14 +47,9 @@ COPY config/airflow.cfg ${AIRFLOW_USER_HOME}/.ssh/id_rsa
 RUN chmod 600 ${AIRFLOW_USER_HOME}/.ssh/id_rsa
 COPY config/airflow.cfg ${AIRFLOW_USER_HOME}/airflow.cfg
 COPY config/webserver_config.py ${AIRFLOW_USER_HOME}/webserver_config.py
-#RUN mkdir -p ${AIRFLOW_USER_HOME}/logs
-#RUN mkdir -p ${AIRFLOW_USER_HOME}/logs/scheduler
-#RUN chmod -R 777 ${AIRFLOW_USER_HOME}/logs
-#RUN chmod -R 777 ${AIRFLOW_USER_HOME}/logs/scheduler
 
 RUN chown -R airflow: ${AIRFLOW_USER_HOME}
 RUN chmod +x /entrypoint.sh
-
 
 EXPOSE 8080 5555 8793
 
