@@ -58,3 +58,12 @@ Errors:
     on analysis I found that issue was due to access of local directory, hence docker container was not able to write to the local directory
     **Solution**: chmod local `logs` directory 
 
+13. When running spark notebook app, it was throwing error that spark_events does not exist:
+    Solution: Create spark_events directory in your local and give that 777 access. So that docker container can write logs in it.
+
+14. Log files empty in spark_events folder:
+    The log files generated in spark_events directory is empty.
+    Real Problem: Files have content but local user has no access to read it. When I open same file in container, 
+    I can see its content.
+15. 
+
