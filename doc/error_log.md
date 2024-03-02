@@ -65,5 +65,9 @@ Errors:
     The log files generated in spark_events directory is empty.
     Real Problem: Files have content but local user has no access to read it. When I open same file in container, 
     I can see its content.
-15. 
+15. Was facing module not found error for spark_submit_oeprator, when importing saprk_submit_operator in dag code.
+    Fix was to install the apache-airflow-providers-apache-spark library using pip install in the airlfow container
+    `pip install apache-airflow-providers-apache-spark`
+    This gave info about compatible version of apache-airflow-providers-apache-spark. 
+    Then I added it to base-provider-requirements.txt. 
 
