@@ -71,3 +71,14 @@ Errors:
     This gave info about compatible version of apache-airflow-providers-apache-spark. 
     Then I added it to base-provider-requirements.txt. 
 
+16. Testing connection is disabled in configuration, enable it 
+
+-----
+
+/usr/local/***/.local/lib/python3.11/site-packages/pyspark/bin/load-spark-env.sh: line 68: ps: command not found
+python3: can't open file '/tmp/***tmpg_e3hw_q/etl/etl_job.py': [Errno 2] No such file or directory
+
+ python3: can't open file '/tmp/***tmpg_e3hw_q/etl/etl_job.py': [Errno 2] No such file or directory
+
+
+sudo yum install procps
