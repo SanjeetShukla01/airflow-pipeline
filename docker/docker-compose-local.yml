@@ -21,7 +21,7 @@ services:
         networks:
             - common
         volumes:
-            - ${PWD}/app:/home/sam/app
+            - ${PWD}/app/spark-etl:/usr/local/pyspark_pipeline
 #            - "${BASE_DIR}/my-common-python:/var/lib/my-python/my-common-python"
 #            - "${BASE_DIR}/sf_data_pipeline:/var/lib/my-python/sf_data_pipeline"
 #            - "${BASE_DIR}/pyspark_pipeline:/var/lib/my-python/pyspark_pipeline"

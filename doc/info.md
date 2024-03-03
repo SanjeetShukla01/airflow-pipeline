@@ -66,6 +66,7 @@ For Spark Cluster, it will need one more dockerfile for spark.
   - `spark-submit --py-files target/spark_etl-0.0.1.zip etl/etl_job.py --job-name air_asia_data_job`
 - Mount executor code to avoid creating python file.
 - Schedule spark logs directory
+- Separate code for spark and others. 
 
 
 ## Running Spark Job from Airflow:
