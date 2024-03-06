@@ -45,7 +45,6 @@ services:
     local-runner:
         image: airflow-dev:2_8
         hostname: airflow
-        restart: always
         networks:
             - common
         depends_on:
