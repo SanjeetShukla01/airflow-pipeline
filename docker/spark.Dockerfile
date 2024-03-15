@@ -40,15 +40,17 @@ RUN pip install --no-cache-dir findspark
 ############################################
 
 
-# VERSIONS
-ENV SPARK_VERSION=3.2.4 \
-HADOOP_VERSION=3.2 \
-JAVA_VERSION=11
+# VERSIONS hadoop_version=3.3
+ENV SPARK_VERSION=3.4.2 \
+HADOOP_VERSION=3 \
+JAVA_VERSION=11 \
+SCALA_VERSION=2.13
 
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends \
     "openjdk-${JAVA_VERSION}-jre-headless" \
     ca-certificates-java  \
+    openssh-server \
     curl && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -57,10 +59,11 @@ RUN apt-get update --yes && \
 
 
 RUN java --version
+RUN service ssh start
 
 # DOWNLOAD SPARK AND INSTALL
-RUN DOWNLOAD_URL_SPARK="https://dlcdn.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz" \
-    && wget --verbose -O apache-spark.tgz  "${DOWNLOAD_URL_SPARK}"\
+RUN DOWNLOAD_URL_SPARK="https://dlcdn.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}-scala${SCALA_VERSION}.tgz" \
+    && wget --verbose -O apache-spark.tgz "${DOWNLOAD_URL_SPARK}" \
     && mkdir -p /home/spark \
     && tar -xf apache-spark.tgz -C /home/spark --strip-components=1 \
     && rm apache-spark.tgz
