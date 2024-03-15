@@ -1,145 +1,75 @@
-FROM python:3.10.9-buster
+# Use a smaller base image for Python
+FROM python:3.11.6 AS base
 
-###########################################
-# Upgrade the packages
-###########################################
-# Download latest listing of available packages:
-RUN apt-get -y update
-# Upgrade already installed packages:
-RUN apt-get -y upgrade
-# Install a new package:
+# Set environment variables
+ENV PYTHONBUFFERED=1 \
+    DEBIAN_FRONTEND=noninteractive \
+    TZ=Etc/IST \
+    PIPENV_VENV_IN_PROJECT=1 \
+    SPARK_VERSION=3.4.2 \
+    HADOOP_VERSION=3 \
+    JAVA_VERSION=11 \
+    SCALA_VERSION=2.13 \
+    UNAME=sam \
+    UID=1000 \
+    GID=1000
 
-###########################################
-# install tree package
-###########################################
-# Install a new package:
-RUN apt-get -y install tree
-
-
-#############################################
-# install pipenv
-############################################
-ENV PIPENV_VENV_IN_PROJECT=1
-
-# ENV PIPENV_VENV_IN_PROJECT=1 is important: it causes the resulting virtual environment to be created as /app/.venv. Without this the environment gets created somewhere surprising, such as /root/.local/share/virtualenvs/app-4PlAip0Q - which makes it much harder to write automation scripts later on.
-
-RUN python -m pip install --upgrade pip
-
-RUN pip install --no-cache-dir pipenv
-
-RUN pip install --no-cache-dir jupyter
-
-RUN pip install --no-cache-dir py4j
-
-RUN pip install --no-cache-dir findspark
-
-
-#############################################
-# install java and spark and hadoop
-# Java is required for scala and scala is required for Spark
-############################################
+# Upgrade packages and install necessary dependencies
+RUN apt-get update && \
+    apt-get -y upgrade && \
+    apt-get -y install --no-install-recommends \
+#    "openjdk-${JAVA_VERSION}-jre-headless" \
+    default-jdk \
+    ca-certificates-java \
+    ssh \
+    curl \
+    sudo \
+    tree && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    mkdir -p /var/run/sshd /home/sam/.ssh /home/spark/logs && \
+    chmod 0755 /var/run/sshd /home/sam/.ssh && \
+    groupadd -g "${GID}" samgroup && \
+    useradd -u "${UID}" -g "${GID}" -p "$(openssl passwd admin-sam)" --create-home --shell /bin/bash --groups sudo sam && \
+    chown -R "${UID}:${GID}" /home/sam/.ssh /home/spark/logs
 
 
-# VERSIONS hadoop_version=3.3
-ENV SPARK_VERSION=3.4.2 \
-HADOOP_VERSION=3 \
-JAVA_VERSION=11 \
-SCALA_VERSION=2.13
-
-RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends \
-    "openjdk-${JAVA_VERSION}-jre-headless" \
-    ca-certificates-java  \
-    openssh-server \
-    curl && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# What is --jre-headless?
-# Minimal Java runtime - needed for executing non GUI Java programs
-
-
-RUN java --version
 RUN service ssh start
 
-# DOWNLOAD SPARK AND INSTALL
+## Download and install Spark
 RUN DOWNLOAD_URL_SPARK="https://dlcdn.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}-scala${SCALA_VERSION}.tgz" \
     && wget --verbose -O apache-spark.tgz "${DOWNLOAD_URL_SPARK}" \
-    && mkdir -p /home/spark \
     && tar -xf apache-spark.tgz -C /home/spark --strip-components=1 \
     && rm apache-spark.tgz
 
+## Configure Spark
+ENV SPARK_HOME="/home/spark" \
+    PATH="${SPARK_HOME}/bin:${PATH}" \
+    PYSPARK_PYTHON=/usr/bin/python3 \
+    PYSPARK_DRIVER_PYTHON='jupyter' \
+    PYSPARK_DRIVER_PYTHON_OPTS='notebook --ip=0.0.0.0 --port=4041 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password='''
 
-# SET SPARK ENV VARIABLES
-ENV SPARK_HOME="/home/spark"
-ENV PATH="${SPARK_HOME}/bin/:${PATH}"
-ENV PYSPARK_PYTHON=/usr/bin/python3
-ENV PYSPARK_DRIVER_PYTHON='jupyter'
-ENV PYSPARK_DRIVER_PYTHON_OPTS='notebook --no-browser --port=4041'
-
-
-# Fix Spark installation for Java 11 and Apache Arrow library
-# see: https://github.com/apache/spark/pull/27356, https://spark.apache.org/docs/latest/#downloading
+## Configure Spark defaults
 RUN cp -p "${SPARK_HOME}/conf/spark-defaults.conf.template" "${SPARK_HOME}/conf/spark-defaults.conf" && \
     echo 'spark.driver.extraJavaOptions -Dio.netty.tryReflectionSetAccessible=true' >> "${SPARK_HOME}/conf/spark-defaults.conf" && \
-    echo 'spark.executor.extraJavaOptions -Dio.netty.tryReflectionSetAccessible=true' >> "${SPARK_HOME}/conf/spark-defaults.conf"
-
-############################################
-# create group and user
-############################################
-
-ARG UNAME=sam
-ARG UID=1000
-ARG GID=1000
-
-
-RUN cat /etc/passwd
-
-# create group
-RUN groupadd -g $GID $UNAME
-
-# create a user with userid 1000 and gid 1000
-RUN useradd -u $UID -g $GID -m -s /bin/bash $UNAME
-# -m creates home directory
-
-# change permissions of /home/sam to 1000:100
-RUN chown $UID:$GID /home/sam
-
-
-###########################################
-# add sudo
-###########################################
-
-RUN apt-get update --yes
-RUN apt-get -y install sudo
-RUN apt-get -y install vim
-RUN cat /etc/sudoers
-RUN echo "$UNAME ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-RUN cat /etc/sudoers
-
-#############################
-# spark history server
-############################
-
-# ALLOW spark history server (mount sparks_events folder locally to /home/sam/app/spark_events)
-
-RUN echo 'spark.eventLog.enabled true' >> "${SPARK_HOME}/conf/spark-defaults.conf" && \
+    echo 'spark.executor.extraJavaOptions -Dio.netty.tryReflectionSetAccessible=true' >> "${SPARK_HOME}/conf/spark-defaults.conf" && \
+    echo 'spark.eventLog.enabled true' >> "${SPARK_HOME}/conf/spark-defaults.conf" && \
     echo 'spark.eventLog.dir file:///home/sam/app/spark_events' >> "${SPARK_HOME}/conf/spark-defaults.conf" && \
     echo 'spark.history.fs.logDirectory file:///home/sam/app/spark_events' >> "${SPARK_HOME}/conf/spark-defaults.conf"
 
-RUN mkdir /home/spark/logs
-RUN chown $UID:$GID /home/spark/logs
 
-###########################################
-# change working dir and user
-###########################################
-
+## Switch to the sam user
 USER $UNAME
 
-RUN mkdir -p /home/$UNAME/app
+## Copy authorized_keys for SSH
+COPY --chown=sam:sam id_rsa.pub /home/sam/.ssh/authorized_keys
+RUN chmod 600 /home/sam/.ssh/authorized_keys
+
+
+## Set the working directory
 WORKDIR /home/$UNAME/app
 
+USER root
 
-#CMD ["sh", "-c", "tail -f /dev/null"]
-#CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=4041", "--no-browser", "--allow-root", "--NotebookApp.token=''" ,"--NotebookApp.password=''" ]
-# Start Spark History Server in the background
-CMD ["sh", "-c", "$SPARK_HOME/sbin/start-history-server.sh && jupyter notebook --ip=0.0.0.0 --port=4041 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password=''"]
+## Start Spark History Server and Jupyter Notebook
+CMD ["sh", "-c", "$SPARK_HOME/sbin/start-history-server.sh && jupyter notebook"]
