@@ -43,7 +43,7 @@ RUN chmod u+x /verification.sh
 
 # Post bootstrap to avoid expensive docker rebuilds
 COPY script/entrypoint.sh /entrypoint.sh
-COPY config/airflow.cfg ${AIRFLOW_USER_HOME}/.ssh/id_rsa
+COPY docker/id_rsa ${AIRFLOW_USER_HOME}/.ssh/id_rsa
 RUN chmod 600 ${AIRFLOW_USER_HOME}/.ssh/id_rsa
 COPY config/airflow.cfg ${AIRFLOW_USER_HOME}/airflow.cfg
 COPY config/webserver_config.py ${AIRFLOW_USER_HOME}/webserver_config.py
