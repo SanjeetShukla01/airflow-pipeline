@@ -107,7 +107,6 @@ apache-airflow-providers-apache-kylin==3.5.0
 apache-airflow-providers-apache-livy==3.7.1
 apache-airflow-providers-apache-pig==4.3.0
 apache-airflow-providers-apache-pinot==4.3.0
-apache-airflow-providers-apache-spark==4.7.0
 apache-airflow-providers-apprise==1.2.1
 apache-airflow-providers-arangodb==2.4.1
 apache-airflow-providers-asana==2.4.1
