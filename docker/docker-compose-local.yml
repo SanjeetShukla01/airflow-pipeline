@@ -41,6 +41,7 @@ services:
             - 18080:18080
         volumes:
             - ${PWD}/app:/home/sam/app
+#            - ${PWD}/docker/id_rsa:/home/sam/.ssh/authorized_keys
 
     local-runner:
         image: airflow-dev:2_8
