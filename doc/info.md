@@ -59,7 +59,9 @@ For Spark Cluster, it will need one more dockerfile for spark.
 - Create link to dag and plugin folder.                     -- Done
 - Install vim in executor node.                             -- Done
 - Add log directory to store log on local machine.          -- Done
-- 
+
+
+- set ssh connection between airflow and spark node
 - Create connection to connect to Spark box.                --#TODO
 - Find a way to deploy and run spark job through airflow.   --#TODO
 - Add spark code to the setup                               --#TODO
