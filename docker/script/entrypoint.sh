@@ -36,7 +36,7 @@ install_requirements() {
     fi
 }
 
-#Create Links
+# Create soft Links
 create_links(){
   ln -s ../../airflow-common-code/common ./plugins/common
   ln -s ../../airflow-common-code/util ./plugins/util
